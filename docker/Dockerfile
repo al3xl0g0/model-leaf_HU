@@ -3,8 +3,8 @@ ARG cudnn_version=7
 
 FROM nvidia/cuda:10.0-base-ubuntu16.04
 
-COPY ../environment.yml /.
-COPY entrypoint.sh /
+#COPY c:\Users\Hevra\Documents\GitHub\model-leaf_HU\environment.yml /environment.yml
+#COPY c:\Users\Hevra\Documents\GitHub\model-leaf_HU\entrypoint.sh /entrypoint.sh
 
 RUN apt-get update && apt-get install -y \
 	wget \
@@ -24,15 +24,15 @@ ENV TMPDIR=/var/tmp
 ENV PATH /opt/conda/bin:$PATH
 
 #Create conda environment
-RUN conda update -n base -c defaults conda
-RUN conda env create -f environment.yml
-RUN conda init bash
-RUN echo "conda activate model-env" >> ~/.bashrc
-RUN echo "cd /workspace" >> ~/.bashrc 
+#RUN conda update -n base -c defaults conda
+#RUN conda env create -f environment.yml
+#RUN conda init bash
+#RUN echo "conda activate model-env" >> ~/.bashrc
+#RUN echo "cd /workspace" >> ~/.bashrc 
 
 ## Jupyter
 EXPOSE 8888
 ## Tensorboard
 EXPOSE 6006
 
-ENTRYPOINT /entrypoint.sh
+#ENTRYPOINT /entrypoint.sh
