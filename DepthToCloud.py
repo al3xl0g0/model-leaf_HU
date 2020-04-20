@@ -1,3 +1,5 @@
+import numpy as np
+
 def depthToCloud(RGB, depth, topleft):
   if (topleft < 2):
     topleft = np.array([1,1])

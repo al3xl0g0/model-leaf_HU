@@ -13,6 +13,7 @@ def dataToCloud(RGB, MS, topleft):
     MS[MS == 0] = np.nan;
 
     # RGB-D camera constants
+    [height, width, _] = RGB.shape
     center = np.array([height / 2, width / 2])
     matrix = np.true_divide(RGB[:, :, 1], RGB[:, :, 1])
 
