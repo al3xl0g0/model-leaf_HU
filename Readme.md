@@ -1,10 +1,9 @@
 ## Getting started
 ### Install the environment
 1. Connect to the agrinet remote server with your credentials
-2. Clone the repository ```git clone https://github.com/simonlousky/model-leaf.git leafsegmentor```
-3. Enter the directory with `cd leafsegmentor`
+2. Clone the repository ```git clone https://github.com/al3xl0g0/model-leaf_HU.git AgriNetCloudPoint```
+3. Enter the directory with `cd AgriNetCloudPoint`
 4. Run setup `bash setup.sh` and follow the miniconda install instructions with default values if needed.
-    * This may take a while, go make yourself a coffee
   
 The install will create a directory leafsegmentor. All relative paths should be from this directory.
 
