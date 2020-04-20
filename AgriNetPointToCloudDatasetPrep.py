@@ -14,6 +14,7 @@ def main():
     parser.add_argument('-v', '--version', action='version', version='%(prog)s 1.0')
     subparsers = parser.add_subparsers()
 
+
     # parser for download
     parser_download = subparsers.add_parser('download', help=HelpReference.DownloadReference.description)
     parser_download.add_argument('task_id', help=HelpReference.DownloadReference.task_id)
