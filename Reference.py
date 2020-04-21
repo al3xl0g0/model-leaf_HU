@@ -9,6 +9,12 @@ class HelpReference:
     help_description = "\
     Prints the synopsis and the list of possible options and commands."
 
+    class GenerateRGBDReference:
+        description = "Preparate dataset and generate the point cloud from the RGB-D images"
+        output = "Set output directory [default: current]"
+        location = "Location to save the dataset files"
+        task = "task id for agrinet datasets"
+
     class TrainReference:
         description = "Creates a dataset of synthetic pictures, and runs the training model on the dataset. The best result model is saved as a .h5 file."
         output = "specify path to .h5 model location [default: current]"
@@ -57,3 +63,4 @@ class HelpReference:
         description = "Download specific task id to local directory"
         task_id = "Task id number e.g: 103"
         location = "Location to save the files"
+
