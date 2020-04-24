@@ -17,19 +17,31 @@ then you will need to run ```. ~/.bash_profile``` at the beginning of each sessi
 
 ### Using the command
 
-1. Go to the leafsegmentor directory
-2. Run `leafsegmentor --help`
+1. Go to the  AgriNetCloudPoint directory
+2. Run `AgriNetPointToCloudDatasetPrep.py --help`
 You should see the command help doc.
 For further info continue reading here or refer to the `--help` of every sub command
 
 
 ## A to Z work flow
 
-###  
+
+
+### Generatingh Point Cloud from RGB-D Object Dataset (full image REGISTRET) from AgriEye
+Load RGB-D data 3-D captured by AgriEye sensor
+Convert depth image into 3D point cloud
+With depthToCloud_AgriEye function
+
+###  Load a Multi data (MS and Thermal)  captured by AgriEye sensor
+Convert Multi Data image into 3D point cloud
+With dataToCloud_AgriEye function saveing the Multi data value
 
 
 Every subcommand has a purpose on its own but the tools are originally made to provide an entire package to train and export leaves.
 
+###  Create RGB image base on the RGB chanels of MultySpectral sensor
+Convert the chanels to uint8 format just for disply
+Cand Enhanse the colors with histeq function
 ### Download training task
 
 Downloading training tasks in the remote server is fairly simple.
