@@ -22,7 +22,11 @@ then you will need to run ```. ~/.bash_profile``` at the beginning of each sessi
 You should see the command help doc.
 For further info continue reading here or refer to the `--help` of every sub command
 
+
 ## A to Z work flow
+
+###  
+
 
 Every subcommand has a purpose on its own but the tools are originally made to provide an entire package to train and export leaves.
 

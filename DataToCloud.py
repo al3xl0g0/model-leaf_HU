@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def dataToCloud(RGB, MS, topleft):
     if (topleft < 2):
         topleft = np.array([1, 1])
