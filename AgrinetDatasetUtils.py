@@ -34,7 +34,7 @@ def dn_to_rad(RGB, MS480, MS520, MS550, MS670, MS700, MS730, MS780):
     # In order to bring the corent RAW data to RADIANCE
     # Coefficients to Banana in Rahan
 
-    DN2RAD = [0.059057, 0.192245, 0.594233, 1.198960, 1.871885, 2.034510, 2.075143];
+    DN2RAD = [0.059057, 0.192245, 0.594233, 1.198960, 1.871885, 2.034510, 2.075143]
 
     MS480 = np.multiply(MS480, DN2RAD[0])
     MS520 = np.multiply(MS520, DN2RAD[1])
@@ -47,26 +47,26 @@ def dn_to_rad(RGB, MS480, MS520, MS550, MS670, MS700, MS730, MS780):
     # Convert Multi Data image into 3D point cloud
     # With dataToCloud_AgriEye function
     # Saving the Multi data value
-    pcloudMS480 = dataToCloud(RGB, MS480, 0);
-    MS480rad = pcloudMS480[:, :, 2];
+    pcloudMS480 = dataToCloud(RGB, MS480, 0)
+    MS480rad = pcloudMS480[:, :, 2]
 
-    pcloudMS520 = dataToCloud(RGB, MS520, 0);
-    MS520rad = pcloudMS520[:, :, 2];
+    pcloudMS520 = dataToCloud(RGB, MS520, 0)
+    MS520rad = pcloudMS520[:, :, 2]
 
-    pcloudMS550 = dataToCloud(RGB, MS550, 0);
-    MS550rad = pcloudMS550[:, :, 2];
+    pcloudMS550 = dataToCloud(RGB, MS550, 0)
+    MS550rad = pcloudMS550[:, :, 2]
 
-    pcloudMS670 = dataToCloud(RGB, MS670, 0);
-    MS670rad = pcloudMS670[:, :, 2];
+    pcloudMS670 = dataToCloud(RGB, MS670, 0)
+    MS670rad = pcloudMS670[:, :, 2]
 
-    pcloudMS700 = dataToCloud(RGB, MS700, 0);
-    MS700rad = pcloudMS700[:, :, 2];
+    pcloudMS700 = dataToCloud(RGB, MS700, 0)
+    MS700rad = pcloudMS700[:, :, 2]
 
-    pcloudMS730 = dataToCloud(RGB, MS730, 0);
-    MS730rad = pcloudMS730[:, :, 2];
+    pcloudMS730 = dataToCloud(RGB, MS730, 0)
+    MS730rad = pcloudMS730[:, :, 2]
 
-    pcloudMS780 = dataToCloud(RGB, MS780, 0);
-    MS780rad = pcloudMS780[:, :, 2];
+    pcloudMS780 = dataToCloud(RGB, MS780, 0)
+    MS780rad = pcloudMS780[:, :, 2]
 
     MSradlist = [MS480rad, MS520rad, MS550rad, MS670rad, MS700rad, MS730rad, MS780rad]
 
@@ -84,7 +84,6 @@ def bdrf_correction():
     pass
 
 def calc_3d_correction():
-
     pass
 
 def radians_to_reflectance(Rad3d_corr480, Rad3d_corr520, Rad3d_corr550, Rad3d_corr670, Rad3d_corr700, Rad3d_corr730, Rad3d_corr780 ):
@@ -97,18 +96,12 @@ def radians_to_reflectance(Rad3d_corr480, Rad3d_corr520, Rad3d_corr550, Rad3d_co
     Ref3d_corr700 = Rad3d_corr700 * Gain(4);
     Ref3d_corr730 = Rad3d_corr730 * Gain(5);
     Ref3d_corr780 = Rad3d_corr780 * Gain(6);
-
     pass
 
 def ver_3d_corrected_brdf():
 
     #Verification of 3D corrected based BRDF
     pass
-
-
-
-
-
 
 def rotate_bound(image, angle):
     (h, w) = image.shape[:2]

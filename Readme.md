@@ -32,9 +32,9 @@ Load RGB-D data 3-D captured by AgriEye sensor
 Convert depth image into 3D point cloud
 With depthToCloud_AgriEye function
 
-###  Load a Multi data (MS and Thermal)  captured by AgriEye sensor
+###  Load a Multi data (MS and Thermal) captured by AgriEye sensor
 Convert Multi Data image into 3D point cloud
-With dataToCloud_AgriEye function saveing the Multi data value
+With dataToCloud_AgriEye function saving the Multi data value
 
 
 Every subcommand has a purpose on its own but the tools are originally made to provide an entire package to train and export leaves.
