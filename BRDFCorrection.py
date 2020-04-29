@@ -119,7 +119,7 @@ for i in range(r):
 # Calculat parameters to 3D correction in 2 steps%%%
 # Coefficient based on polynom calculation from SPHER
 # Alignment each of the pixels  - the small Align
-# Test
+
 Rad3dang_480 = np.multiply(-3.0929, np.power(angcoef, 2)) + np.multiply(4.4708, angcoef) - 0.4843
 Rad3dang_520 = np.multiply(1.9053, np.power(angcoef, 2)) - np.multiply(6.8177, angcoef) + 5.8257
 Rad3dang_550 = np.multiply(-1.4214, np.power(angcoef, 2)) + np.multiply(1.2813, angcoef) + 0.8046
@@ -173,4 +173,6 @@ Ref3d_corr670 = np.multiply(Rad3d_corr670, Gain[3])
 Ref3d_corr700 = np.multiply(Rad3d_corr700, Gain[4])
 Ref3d_corr730 = np.multiply(Rad3d_corr730, Gain[5])
 Ref3d_corr780 = np.multiply(Rad3d_corr780, Gain[6])
+
+#Test Matlab to python
 print(Ref3d_corr780[421, 422])
