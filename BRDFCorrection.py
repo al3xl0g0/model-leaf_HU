@@ -35,26 +35,26 @@ MS780 = np.multiply(MS780_DN, DN2RAD[6])
 # With dataToCloud_AgriEye function
 # Saving the Multi data value
 
-pcloudMS480 = dataToCloud(RGB, MS480, 0);
-MS480rad = pcloudMS480[:, :, 2];
+pcloudMS480 = dataToCloud(RGB, MS480, 0)
+MS480rad = pcloudMS480[:, :, 2]
 
-pcloudMS520 = dataToCloud(RGB, MS520, 0);
-MS520rad = pcloudMS520[:, :, 2];
+pcloudMS520 = dataToCloud(RGB, MS520, 0)
+MS520rad = pcloudMS520[:, :, 2]
 
-pcloudMS550 = dataToCloud(RGB, MS550, 0);
-MS550rad = pcloudMS550[:, :, 2];
+pcloudMS550 = dataToCloud(RGB, MS550, 0)
+MS550rad = pcloudMS550[:, :, 2]
 
-pcloudMS670 = dataToCloud(RGB, MS670, 0);
-MS670rad = pcloudMS670[:, :, 2];
+pcloudMS670 = dataToCloud(RGB, MS670, 0)
+MS670rad = pcloudMS670[:, :, 2]
 
-pcloudMS700 = dataToCloud(RGB, MS700, 0);
-MS700rad = pcloudMS700[:, :, 2];
+pcloudMS700 = dataToCloud(RGB, MS700, 0)
+MS700rad = pcloudMS700[:, :, 2]
 
-pcloudMS730 = dataToCloud(RGB, MS730, 0);
-MS730rad = pcloudMS730[:, :, 2];
+pcloudMS730 = dataToCloud(RGB, MS730, 0)
+MS730rad = pcloudMS730[:, :, 2]
 
-pcloudMS780 = dataToCloud(RGB, MS780, 0);
-MS780rad = pcloudMS780[:, :, 2];
+pcloudMS780 = dataToCloud(RGB, MS780, 0)
+MS780rad = pcloudMS780[:, :, 2]
 
 #BRDF Correction
 # % extract row and column size from z
@@ -83,9 +83,7 @@ for i in range(r):
 Filter2 = np.flipud(Filter2)
 
 # The minimal distance between the sansor to object
-# H_min = np.double(np.min(np.min(Filter2)))
-## TO-DO extract min vlue from Filter2
-H_min = 1
+H_min = np.nanmin(Filter2)
 # Calculate the depth Coefficient
 H = np.true_divide(Filter2, H_min)
 # Implaement the depth coefficient om MultiSpectral Data from
