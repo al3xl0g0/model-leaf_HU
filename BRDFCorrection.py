@@ -1,6 +1,7 @@
 import math
 import numpy as np
 import scipy.signal as signal
+from scipy import io
 from skimage import io as skio
 from DataToCloud import dataToCloud
 from DepressionAng import depAng
@@ -175,3 +176,20 @@ print(Ref3d_corr780[438, 446])
 # Create RGB image base on the RGB chanels of the Reflectance 3D correction data of MultySpectral sensor
 # convert the chanels to uint8 format just for disply
 # and Enhanse the colors with imadjust function
+
+py_data = {
+            'py_pcloud': pcloud,
+            'py_distance': distance,
+            'py_depth': depth,
+            'py_rgb': RGB,
+            'py_Rad3dang_coef480': Rad3dang_coef480,
+            'py_Rad3dang_coef520': Rad3dang_coef520,
+            'py_Rad3dang_coef550': Rad3dang_coef550,
+            'py_Rad3dang_coef670': Rad3dang_coef670,
+            'py_Rad3dang_coef700': Rad3dang_coef700,
+            'py_Rad3dang_coef730': Rad3dang_coef730,
+            'py_Rad3dang_coef780': Rad3dang_coef780,
+            }
+
+# The colors have a slight difference of 14 values between the matlab and the python version for certain points due to imread differences.
+io.savemat(data_folder / 'py_data2.mat', py_data)
