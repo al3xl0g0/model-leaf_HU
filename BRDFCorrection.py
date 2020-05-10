@@ -2,23 +2,24 @@ import math
 import skimage as skio
 import numpy as np
 import signal
-from numpy import nan
-
 from DataToCloud import dataToCloud
 from DepressionAng import depAng
 from DepthToCloud import depthToCloud
+from numpy import nan
+from pathlib import Path
 
-depth = skio.imread('/content/gdrive/My Drive/Processed/3D_Channel_RealSense_Depth.png')
-RGB = skio.imread('/content/gdrive/My Drive/Processed/3D_Channel_RealSense_RGB.jpeg')
+data_folder = Path("/content/gdrive/My Drive/Processed/")
+depth = skio.imread(data_folder / '3D_Channel_RealSense_Depth.png');
+RGB = skio.imread(data_folder / '3D_Channel_RealSense_RGB.jpeg');
 
-MS480_DN = skio.imread('/content/gdrive/My Drive/Processed/Multi_Channel_Robin_480.png');
-MS520_DN = skio.imread('/content/gdrive/My Drive/Processed/Multi_Channel_Robin_520.png');
-MS550_DN = skio.imread('/content/gdrive/My Drive/Processed/Multi_Channel_Robin_550.png');
-MS670_DN = skio.imread('/content/gdrive/My Drive/Processed/Multi_Channel_Robin_670.png');
-MS700_DN = skio.imread('/content/gdrive/My Drive/Processed/Multi_Channel_Robin_700.png');
-MS730_DN = skio.imread('/content/gdrive/My Drive/Processed/Multi_Channel_Robin_730.png');
-MS780_DN = skio.imread('/content/gdrive/My Drive/Processed/Multi_Channel_Robin_780.png');
-thermal = skio.imread('/content/gdrive/My Drive/Processed/Thermal_Channel_0.png');
+MS480_DN = skio.imread(data_folder / 'Multi_Channel_Robin_480.png');
+MS520_DN = skio.imread(data_folder / 'Multi_Channel_Robin_520.png');
+MS550_DN = skio.imread(data_folder / 'Multi_Channel_Robin_550.png');
+MS670_DN = skio.imread(data_folder / 'Multi_Channel_Robin_670.png');
+MS700_DN = skio.imread(data_folder / 'Multi_Channel_Robin_700.png');
+MS730_DN = skio.imread(data_folder / 'Multi_Channel_Robin_730.png');
+MS780_DN = skio.imread(data_folder / 'Multi_Channel_Robin_780.png');
+thermal = skio.imread(data_folder / 'Thermal_Channel_0.png');
 
 DN2RAD = np.asarray([0.059057, 0.192245, 0.594233, 1.198960, 1.871885, 2.034510, 2.075143])
 
@@ -120,19 +121,18 @@ for i in range(r):
 # Coefficient based on polynom calculation from SPHER
 # Alignment each of the pixels  - the small Align
 # Test
-Rad3dang_480 = np.flipud(np.multiply(-3.0929, np.power(angcoef, 2)) + np.multiply(4.4708, angcoef)-0.4843)
-Rad3dang_520 = np.flipud(np.multiply(1.9053, np.power(angcoef, 2)) - np.multiply(6.8177, angcoef)+5.8257)
-Rad3dang_550 = np.flipud(np.multiply(-1.4214, np.power(angcoef, 2)) + np.multiply(1.2813, angcoef)+0.8046)
-Rad3dang_670 = np.flipud(np.multiply(1.1746, np.power(angcoef, 2)) - np.multiply(3.6691, angcoef)+2.8396)
-Rad3dang_700 = np.flipud(np.multiply(1.4149, np.power(angcoef, 2)) - np.multiply(3.9761, angcoef)+2.8536)
-Rad3dang_730 = np.flipud(np.multiply(0.4538, np.power(angcoef, 2)) - np.multiply(1.6242, angcoef)+1.4194)
-Rad3dang_780 = np.flipud(np.multiply(-0.1729, np.power(angcoef, 2)) - np.multiply(0.3105, angcoef)+0.7748)
-
+Rad3dang_480 = np.flipud(np.multiply(-3.0929, np.power(angcoef, 2)) + np.multiply(4.4708, angcoef) - 0.4843)
+Rad3dang_520 = np.flipud(np.multiply(1.9053, np.power(angcoef, 2)) - np.multiply(6.8177, angcoef) + 5.8257)
+Rad3dang_550 = np.flipud(np.multiply(-1.4214, np.power(angcoef, 2)) + np.multiply(1.2813, angcoef) + 0.8046)
+Rad3dang_670 = np.flipud(np.multiply(1.1746, np.power(angcoef, 2)) - np.multiply(3.6691, angcoef) + 2.8396)
+Rad3dang_700 = np.flipud(np.multiply(1.4149, np.power(angcoef, 2)) - np.multiply(3.9761, angcoef) + 2.8536)
+Rad3dang_730 = np.flipud(np.multiply(0.4538, np.power(angcoef, 2)) - np.multiply(1.6242, angcoef) + 1.4194)
+Rad3dang_780 = np.flipud(np.multiply(-0.1729, np.power(angcoef, 2)) - np.multiply(0.3105, angcoef) + 0.7748)
 
 print('Rad3dang_780')
-print(Rad3dang_780[0,33:50]) #pass
+print(Rad3dang_780[0, 33:50])  # pass
 
-#Seconde Align - to the sensor
+# Seconde Align - to the sensor
 Rad3dang_coef480 = np.add(1, np.subtract(1, Rad3dang_480))
 Rad3dang_coef520 = np.add(1, np.subtract(1, Rad3dang_520))
 Rad3dang_coef550 = np.add(1, np.subtract(1, Rad3dang_550))
