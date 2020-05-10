@@ -1,8 +1,8 @@
 import math
+import skimage as skio
 import numpy as np
-import scipy.signal as signal
+import signal
 from numpy import nan
-from skimage import io as skio
 
 from DataToCloud import dataToCloud
 from DepressionAng import depAng
@@ -119,24 +119,30 @@ for i in range(r):
 # Calculat parameters to 3D correction in 2 steps%%%
 # Coefficient based on polynom calculation from SPHER
 # Alignment each of the pixels  - the small Align
+# Test
+Rad3dang_480 = np.flipud(np.multiply(-3.0929, np.power(angcoef, 2)) + np.multiply(4.4708, angcoef)-0.4843)
+Rad3dang_520 = np.flipud(np.multiply(1.9053, np.power(angcoef, 2)) - np.multiply(6.8177, angcoef)+5.8257)
+Rad3dang_550 = np.flipud(np.multiply(-1.4214, np.power(angcoef, 2)) + np.multiply(1.2813, angcoef)+0.8046)
+Rad3dang_670 = np.flipud(np.multiply(1.1746, np.power(angcoef, 2)) - np.multiply(3.6691, angcoef)+2.8396)
+Rad3dang_700 = np.flipud(np.multiply(1.4149, np.power(angcoef, 2)) - np.multiply(3.9761, angcoef)+2.8536)
+Rad3dang_730 = np.flipud(np.multiply(0.4538, np.power(angcoef, 2)) - np.multiply(1.6242, angcoef)+1.4194)
+Rad3dang_780 = np.flipud(np.multiply(-0.1729, np.power(angcoef, 2)) - np.multiply(0.3105, angcoef)+0.7748)
 
-Rad3dang_480 = np.multiply(-3.0929, np.power(angcoef, 2)) + np.multiply(4.4708, angcoef) - 0.4843
-Rad3dang_520 = np.multiply(1.9053, np.power(angcoef, 2)) - np.multiply(6.8177, angcoef) + 5.8257
-Rad3dang_550 = np.multiply(-1.4214, np.power(angcoef, 2)) + np.multiply(1.2813, angcoef) + 0.8046
-Rad3dang_670 = np.multiply(1.1746, np.power(angcoef, 2)) - np.multiply(3.6691, angcoef) + 2.8396
-Rad3dang_700 = np.multiply(1.4149, np.power(angcoef, 2)) - np.multiply(3.9761, angcoef) + 2.8536
-Rad3dang_730 = np.multiply(0.4538, np.power(angcoef, 2)) - np.multiply(1.6242, angcoef) + 1.4194
-Rad3dang_780 = np.subtract(np.multiply(-0.1729, np.power(angcoef, 2)), np.add(np.multiply(0.3105, angcoef), 0.7748))
 
-# Seconde Align - to the sensor
-Rad3dang_coef480 = 1. + 1. - Rad3dang_480
-Rad3dang_coef520 = 1. + 1. - Rad3dang_520
-Rad3dang_coef550 = 1. + 1. - Rad3dang_550
-Rad3dang_coef670 = 1. + 1. - Rad3dang_670
-Rad3dang_coef700 = 1. + 1. - Rad3dang_700
-Rad3dang_coef730 = 1. + 1. - Rad3dang_730
-Rad3dang_coef780 = 1. + 1. - Rad3dang_780
+print('Rad3dang_780')
+print(Rad3dang_780[0,33:50]) #pass
 
+#Seconde Align - to the sensor
+Rad3dang_coef480 = np.add(1, np.subtract(1, Rad3dang_480))
+Rad3dang_coef520 = np.add(1, np.subtract(1, Rad3dang_520))
+Rad3dang_coef550 = np.add(1, np.subtract(1, Rad3dang_550))
+Rad3dang_coef670 = np.add(1, np.subtract(1, Rad3dang_670))
+Rad3dang_coef700 = np.add(1, np.subtract(1, Rad3dang_700))
+Rad3dang_coef730 = np.add(1, np.subtract(1, Rad3dang_730))
+Rad3dang_coef780 = np.add(1, np.subtract(1, Rad3dang_780))
+
+print('Rad3dang_coef780')
+print(Rad3dang_coef780[6, 33:49])
 # % 3D correction based on BRDF
 # % project each pixel to one plane
 
@@ -147,18 +153,9 @@ Rad3d_corr670 = np.multiply(Rad2d_depth670, Rad3dang_coef670)
 Rad3d_corr700 = np.multiply(Rad2d_depth700, Rad3dang_coef700)
 Rad3d_corr730 = np.multiply(Rad2d_depth730, Rad3dang_coef730)
 Rad3d_corr780 = np.multiply(Rad2d_depth780, Rad3dang_coef780)
-
-# Second Align - to the sensor
-
+print(Rad3d_corr780[195, 600:650])
 
 # 3D correction based on BRDF project each pixel to one plane
-
-Rad3d_corr520 = np.multiply(Rad2d_depth520, Rad3dang_coef520)
-Rad3d_corr550 = np.multiply(Rad2d_depth550, Rad3dang_coef550)
-Rad3d_corr670 = np.multiply(Rad2d_depth670, Rad3dang_coef670)
-Rad3d_corr700 = np.multiply(Rad2d_depth700, Rad3dang_coef700)
-Rad3d_corr730 = np.multiply(Rad2d_depth730, Rad3dang_coef730)
-Rad3d_corr780 = np.multiply(Rad2d_depth780, Rad3dang_coef780)
 
 # Radiance2Reflectance
 # Gain coefficients calculated from lab experiment for each Band
@@ -173,6 +170,9 @@ Ref3d_corr670 = np.multiply(Rad3d_corr670, Gain[3])
 Ref3d_corr700 = np.multiply(Rad3d_corr700, Gain[4])
 Ref3d_corr730 = np.multiply(Rad3d_corr730, Gain[5])
 Ref3d_corr780 = np.multiply(Rad3d_corr780, Gain[6])
+print('Ref3d_corr780')
+print(Ref3d_corr780[438, 446])
 
-#Test Matlab to python
-print(Ref3d_corr780[421, 422])
+# Create RGB image base on the RGB chanels of the Reflectance 3D correction data of MultySpectral sensor
+# convert the chanels to uint8 format just for disply
+# and Enhanse the colors with imadjust function

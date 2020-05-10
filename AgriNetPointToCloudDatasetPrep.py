@@ -15,8 +15,9 @@ def main():
     subparsers = parser.add_subparsers()
 
     # parser for Generation Point Cloud from RGB-D Object Dataset (full image REGISTRET) from AgriEye
-    parser_
-    parser_download.add_argument('task_id', help=HelpReference.DownloadReference.task_id)
+    parser_brdf = subparsers.add_parser('BRDF', help=HelpReference.GenerateRGBDReference)
+    parser_brdf.add_argument('task_id', help=HelpReference.DownloadReference.task_id)
+    parser_brdf.add_argument('path', help=HelpReference.CutReference.path)
 
     # parser for download
     parser_download = subparsers.add_parser('download', help=HelpReference.DownloadReference.description)
