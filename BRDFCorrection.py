@@ -1,25 +1,24 @@
 import math
-import skimage as skio
 import numpy as np
-import signal
+import scipy.signal as signal
+from skimage import io as skio
 from DataToCloud import dataToCloud
 from DepressionAng import depAng
 from DepthToCloud import depthToCloud
 from numpy import nan
 from pathlib import Path
 
-data_folder = Path("/content/gdrive/My Drive/Processed/")
-depth = skio.imread(data_folder / '3D_Channel_RealSense_Depth.png');
-RGB = skio.imread(data_folder / '3D_Channel_RealSense_RGB.jpeg');
-
-MS480_DN = skio.imread(data_folder / 'Multi_Channel_Robin_480.png');
-MS520_DN = skio.imread(data_folder / 'Multi_Channel_Robin_520.png');
-MS550_DN = skio.imread(data_folder / 'Multi_Channel_Robin_550.png');
-MS670_DN = skio.imread(data_folder / 'Multi_Channel_Robin_670.png');
-MS700_DN = skio.imread(data_folder / 'Multi_Channel_Robin_700.png');
-MS730_DN = skio.imread(data_folder / 'Multi_Channel_Robin_730.png');
-MS780_DN = skio.imread(data_folder / 'Multi_Channel_Robin_780.png');
-thermal = skio.imread(data_folder / 'Thermal_Channel_0.png');
+data_folder = Path(r'C:\Users\Hevra\Downloads\Processed')
+depth = skio.imread(data_folder / '3D_Channel_RealSense_Depth.png')
+RGB = skio.imread(data_folder / '3D_Channel_RealSense_RGB.jpeg')
+MS480_DN = skio.imread(data_folder / 'Multi_Channel_Robin_480.png')
+MS520_DN = skio.imread(data_folder / 'Multi_Channel_Robin_520.png')
+MS550_DN = skio.imread(data_folder / 'Multi_Channel_Robin_550.png')
+MS670_DN = skio.imread(data_folder / 'Multi_Channel_Robin_670.png')
+MS700_DN = skio.imread(data_folder / 'Multi_Channel_Robin_700.png')
+MS730_DN = skio.imread(data_folder / 'Multi_Channel_Robin_730.png')
+MS780_DN = skio.imread(data_folder / 'Multi_Channel_Robin_780.png')
+thermal = skio.imread(data_folder / 'Thermal_Channel_0.png')
 
 DN2RAD = np.asarray([0.059057, 0.192245, 0.594233, 1.198960, 1.871885, 2.034510, 2.075143])
 
@@ -55,8 +54,8 @@ MS730rad = pcloudMS730[:, :, 2];
 
 pcloudMS780 = dataToCloud(RGB, MS780, 0);
 MS780rad = pcloudMS780[:, :, 2];
-# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-# %%%%%%%% BRDF Correction %%%%%%%
+
+#BRDF Correction
 # % extract row and column size from z
 # filter2 = signal.medfilt(z)
 # % smoth the outliners in z by using medfilter function of matlab
@@ -104,7 +103,7 @@ for i in range(r):
         else:
             dang[i, j] = depAng(1, Filter2[i, j])
 
-# Generating new metrix
+# Generating new matrix
 # in size of the origenal image (z)
 # and the starting value is 90 to all cells
 coef = np.ones((r, c))

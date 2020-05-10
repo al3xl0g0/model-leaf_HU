@@ -24,6 +24,6 @@ def dataToCloud(RGB, MS, topleft):
     ygrid = np.arange(1, height + 1)[:, None] * np.ones((1, width)) + (topleft.item(1) - 1) - center.item(1)
     pcloud[:, :, 0] = np.true_divide(np.multiply(xgrid, matrix), 100)
     pcloud[:, :, 1] = np.true_divide(np.multiply(ygrid, matrix), 100)
-    pcloud[:, :, 2] = MS[:, :]  # np.true_divide(MS[:, :], 1000)
+    pcloud[:, :, 2] = np.true_divide(MS[:, :], 1000)
 
     return pcloud
