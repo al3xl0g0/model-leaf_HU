@@ -2,6 +2,10 @@ from mrcnn.config import Config
 import numpy as np
 
 class LeafSegmentorConfig(Config):
+
+    DN2RAD = np.asarray([0.059057, 0.192245, 0.594233, 1.198960, 1.871885, 2.034510, 2.075143])
+
+
     # Give the configuration a recognizable name
     NAME = "leaves"
 
