@@ -6,7 +6,7 @@ def asind(x):
     rad = np.arcsin(x)
     return np.degrees(rad)
 
-def depAng(H, R, Re=8.4774e+06): #changed from 4/3 radius of Earth
+def depAng(H, R, Re=8.4774e+06): #changed from 4/3 radius of the Earth
     H2 = np.multiply(2, H)
     H2Re = np.multiply(H2, Re)
     R2 = np.multiply(2, R)
