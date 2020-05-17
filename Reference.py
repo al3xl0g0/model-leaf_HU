@@ -10,10 +10,12 @@ class HelpReference:
     Prints the synopsis and the list of possible options and commands."
 
     class GenerateRGBDReference:
-        description = "Preparate dataset and generate the point cloud from the RGB-D images"
+        description = "Dataset preparation and point-cloud generation from the RGB-D images"
         output = "Set output directory [default: current]"
         location = "Location to save the dataset files"
         task = "task id for agrinet datasets"
+        config = "specify config file"
+        dataset_config = "dataset configuration file path"
 
     class TrainReference:
         description = "Creates a dataset of synthetic pictures, and runs the training model on the dataset. The best result model is saved as a .h5 file."
