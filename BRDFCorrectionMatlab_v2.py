@@ -57,7 +57,7 @@ MS730rad = pcloudMS730[:, :, 2]
 pcloudMS780 = dataToCloud(RGB, MS780, 0)
 MS780rad = pcloudMS780[:, :, 2]
 
-#BRDF Correction
+# BRDF Correction
 # % extract row and column size from z
 # filter2 = signal.medfilt(z)
 # % smoth the outliners in z by using medfilter function of matlab
@@ -70,9 +70,9 @@ MS780rad = pcloudMS780[:, :, 2]
 [pcloud, distance] = depthToCloud(RGB, depth, 0)
 z = pcloud[:, :, 2]
 [r, c] = np.shape(z)
-#MASK
-mask = MS480rad
+# MASK
 Filter2 = signal.medfilt(z)
+mask = MS480rad
 Filter2 = np.multiply(Filter2, mask)
 dang = np.zeros(np.shape(z))
 
@@ -106,7 +106,7 @@ for i in range(r):
         else:
             dang[i, j] = depAng(1, Filter2[i, j])
 # ALEX, Need to ADD: depAng(imag(depAng) ~= 0) = 0;
-dang = np.imag(dang)
+#dang = np.imag(dang)
 # Generating new matrix
 # in size of the origenal image (z)
 # and the starting value is 90 to all cells
@@ -132,30 +132,87 @@ Rad3dang_700 = np.multiply(-177.96, np.power(angcoef, 2)) + np.multiply(422.32, 
 Rad3dang_730 = np.multiply(-250.67, np.power(angcoef, 2)) + np.multiply(633.22, angcoef) - 391.33
 Rad3dang_780 = np.multiply(-360.1, np.power(angcoef, 2)) + np.multiply(897.57, angcoef) - 548.05
 
-
 # Seconde Align - to the sensor
 
-#Rad3dang_coef480 = (max(max(Rad3dang_480)) + (max(max(Rad3dang_480)) - Rad3dang_480)). / Rad3dang_480;
+# Rad3dang_coef480 = (max(max(Rad3dang_480)) + (max(max(Rad3dang_480)) - Rad3dang_480)). / Rad3dang_480;
 
-Rad3dang_coef480 = np.true_divide(np.add(np.max(Rad3dang_480), np.subtract(np.max(Rad3dang_480), np.max(Rad3dang_480))), Rad3dang_480)
-Rad3dang_coef520 = np.add(1, np.subtract(1, Rad3dang_520))
-Rad3dang_coef550 = np.add(1, np.subtract(1, Rad3dang_550))
-Rad3dang_coef670 = np.add(1, np.subtract(1, Rad3dang_670))
-Rad3dang_coef700 = np.add(1, np.subtract(1, Rad3dang_700))
-Rad3dang_coef730 = np.add(1, np.subtract(1, Rad3dang_730))
-Rad3dang_coef780 = np.add(1, np.subtract(1, Rad3dang_780))
+
+Rad3dang_coef480 = np.true_divide(np.add(np.max(Rad3dang_480), np.subtract(np.max(Rad3dang_480), np.max(Rad3dang_480))),
+                                  Rad3dang_480)
+Rad3dang_coef520 = np.true_divide(np.add(np.max(Rad3dang_520), np.subtract(np.max(Rad3dang_520), np.max(Rad3dang_520))),
+                                  Rad3dang_520)
+Rad3dang_coef550 = np.true_divide(np.add(np.max(Rad3dang_550), np.subtract(np.max(Rad3dang_550), np.max(Rad3dang_550))),
+                                  Rad3dang_550)
+Rad3dang_coef670 = np.true_divide(np.add(np.max(Rad3dang_670), np.subtract(np.max(Rad3dang_670), np.max(Rad3dang_670))),
+                                  Rad3dang_670)
+Rad3dang_coef700 = np.true_divide(np.add(np.max(Rad3dang_700), np.subtract(np.max(Rad3dang_700), np.max(Rad3dang_700))),
+                                  Rad3dang_700)
+Rad3dang_coef730 = np.true_divide(np.add(np.max(Rad3dang_730), np.subtract(np.max(Rad3dang_730), np.max(Rad3dang_730))),
+                                  Rad3dang_730)
+Rad3dang_coef780 = np.true_divide(np.add(np.max(Rad3dang_780), np.subtract(np.max(Rad3dang_780), np.max(Rad3dang_780))),
+                                  Rad3dang_780)
+
+# Rad3dang_coef520 = np.add(1, np.subtract(1, Rad3dang_520))
+# Rad3dang_coef550 = np.add(1, np.subtract(1, Rad3dang_550))
+# Rad3dang_coef670 = np.add(1, np.subtract(1, Rad3dang_670))
+# Rad3dang_coef700 = np.add(1, np.subtract(1, Rad3dang_700))
+# Rad3dang_coef730 = np.add(1, np.subtract(1, Rad3dang_730))
+# Rad3dang_coef780 = np.add(1, np.subtract(1, Rad3dang_780))
 
 
 # % 3D correction based on BRDF
 # % project each pixel to one plane
+Rad3dang_corr480 = np.ones((r, c))
+Rad3dang_corr520 = np.ones((r, c))
+Rad3dang_corr550 = np.ones((r, c))
+Rad3dang_corr670 = np.ones((r, c))
+Rad3dang_corr700 = np.ones((r, c))
+Rad3dang_corr730 = np.ones((r, c))
+Rad3dang_corr780 = np.ones((r, c))
 
-Rad3d_corr480 = np.multiply(Rad2d_depth480, Rad3dang_coef480)
-Rad3d_corr520 = np.multiply(Rad2d_depth520, Rad3dang_coef520)
-Rad3d_corr550 = np.multiply(Rad2d_depth550, Rad3dang_coef550)
-Rad3d_corr670 = np.multiply(Rad2d_depth670, Rad3dang_coef670)
-Rad3d_corr700 = np.multiply(Rad2d_depth700, Rad3dang_coef700)
-Rad3d_corr730 = np.multiply(Rad2d_depth730, Rad3dang_coef730)
-Rad3d_corr780 = np.multiply(Rad2d_depth780, Rad3dang_coef780)
+for i in range(r):
+    for j in range(c):
+        if Rad3dang_480[i, j] <= 1 and Rad3dang_coef480[i, j] > 2:
+            Rad3dang_corr480[i, j] = Rad2d_depth480[i, j]
+        else:
+            Rad3dang_corr480[i, j] = np.multiply(Rad2d_depth480[i, j], Rad3dang_coef480[i, j])
+        if Rad3dang_520[i, j] <= 1 and Rad3dang_coef520[i, j] > 2:
+            Rad3dang_corr520[i, j] = Rad2d_depth520[i, j]
+        else:
+            Rad3dang_corr520[i, j] = np.multiply(Rad2d_depth520[i, j], Rad3dang_coef520[i, j])
+
+        if Rad3dang_550[i, j] <= 1 and Rad3dang_coef550[i, j] > 2:
+            Rad3dang_corr550[i, j] = Rad2d_depth550[i, j]
+        else:
+            Rad3dang_corr550[i, j] = np.multiply(Rad2d_depth550[i, j], Rad3dang_coef550[i, j])
+
+        if Rad3dang_670[i, j] <= 1 and Rad3dang_coef670[i, j] > 2:
+            Rad3dang_corr670[i, j] = Rad2d_depth670[i, j]
+        else:
+            Rad3dang_corr670[i, j] = np.multiply(Rad2d_depth670[i, j], Rad3dang_coef670[i, j])
+
+        if Rad3dang_700[i, j] <= 1 and Rad3dang_coef700[i, j] > 2:
+            Rad3dang_corr700[i, j] = Rad2d_depth700[i, j]
+        else:
+            Rad3dang_corr700[i, j] = np.multiply(Rad2d_depth700[i, j], Rad3dang_coef700[i, j])
+
+        if Rad3dang_730[i, j] <= 1 and Rad3dang_coef730[i, j] > 2:
+            Rad3dang_corr730[i, j] = Rad2d_depth730[i, j]
+        else:
+            Rad3dang_corr730[i, j] = np.multiply(Rad2d_depth730[i, j], Rad3dang_coef730[i, j])
+
+        if Rad3dang_780[i, j] <= 1 and Rad3dang_coef780[i, j] > 2:
+            Rad3dang_corr780[i, j] = Rad2d_depth780[i, j]
+        else:
+            Rad3dang_corr780[i, j] = np.multiply(Rad2d_depth480[i, j], Rad3dang_coef780[i, j])
+
+# Rad3d_corr480 = np.multiply(Rad2d_depth480, Rad3dang_coef480)
+# Rad3d_corr520 = np.multiply(Rad2d_depth520, Rad3dang_coef520)
+# Rad3d_corr550 = np.multiply(Rad2d_depth550, Rad3dang_coef550)
+# Rad3d_corr670 = np.multiply(Rad2d_depth670, Rad3dang_coef670)
+# Rad3d_corr700 = np.multiply(Rad2d_depth700, Rad3dang_coef700)
+# Rad3d_corr730 = np.multiply(Rad2d_depth730, Rad3dang_coef730)
+# Rad3d_corr780 = np.multiply(Rad2d_depth780, Rad3dang_coef780)
 
 
 # 3D correction based on BRDF project each pixel to one plane
@@ -186,7 +243,8 @@ Rad3d_corr780 = np.multiply(Rad2d_depth780, Rad3dang_coef780)
 # cv2.imwrite('C:\Users\Hevra\Downloads\Processed\Rad3d_corr550.png', Rad3d_corr550.astype(np.uint8))
 # cv2.imwrite('C:\Users\Hevra\Downloads\Processed\Rad3d_corr670.png', Rad3d_corr670.astype(np.uint8))
 # cv2.imwrite('C:\Users\Hevra\Downloads\Processed\Rad3d_corr700.png', Rad3d_corr700.astype(np.uint8))
-#correct_image_Rad3d_corr730 = Rad3d_corr730.astype(np.uint16)
-cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Rad3d_corr730_cv2.png', Rad3d_corr730, [cv2.IMWRITE_PNG_COMPRESSION, 0])
+# correct_image_Rad3d_corr730 = Rad3d_corr730.astype(np.uint16)
+cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Rad3d_corr730_cv2.png', Rad3dang_corr480,
+            [cv2.IMWRITE_PNG_COMPRESSION, 0])
 
-#skio.imsave(r'C:\Users\Hevra\Downloads\Processed\Rad3d_corr730.png', Rad3d_corr730.astype(np.uint16))
+# skio.imsave(r'C:\Users\Hevra\Downloads\Processed\Rad3d_corr730.png', Rad3d_corr730.astype(np.uint16))
