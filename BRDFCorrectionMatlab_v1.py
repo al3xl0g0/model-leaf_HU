@@ -33,7 +33,6 @@ MS730 = np.multiply(MS730_DN, DN2RAD[5])
 MS780 = np.multiply(MS780_DN, DN2RAD[6])
 
 # Convert Multi Data image into 3D point cloud
-# With dataToCloud_AgriEye function
 # Saving the Multi data value
 
 pcloudMS480 = dataToCloud(RGB, MS480, 0)
