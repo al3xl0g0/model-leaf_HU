@@ -73,23 +73,23 @@ def brdf_correction(RGB, depth, MS480_DN, MS520_DN, MS550_DN, MS670_DN, MS700_DN
     [pcloud, distance] = depthToCloud(RGB, depth, 0)
     z = pcloud[:, :, 2]
     [r, c] = np.shape(z)
-    Filter2 = signal.medfilt(z)
+    #Filter2 = signal.medfilt(z)
     dang = np.zeros(np.shape(z))
-
-    for i in range(r):
-        for j in range(c):
-            if Filter2[i, j] >= 1:
-                Filter2[i, j] = Filter2[i, j]
-            else:
-                Filter2[i, j] = nan
+    #
+    # for i in range(r):
+    #     for j in range(c):
+    #         if Filter2[i, j] >= 1:
+    #             Filter2[i, j] = Filter2[i, j]
+    #         else:
+    #             Filter2[i, j] = nan
 
     # Filter2 array upside down flip flup it
-    Filter2 = np.flipud(Filter2)
+    #Filter2 = np.flipud(Filter2)
 
     # The minimal distance between the sansor to object
-    H_min = np.nanmin(Filter2)
+    H_min = np.nanmin(z)
     # Calculate the depth Coefficient
-    H = np.true_divide(Filter2, H_min)
+    H = np.true_divide(z, H_min)
     # Implaement the depth coefficient om MultiSpectral Data from
     Rad2d_depth480 = np.multiply(MS480rad, H)
     Rad2d_depth520 = np.multiply(MS520rad, H)
@@ -101,10 +101,10 @@ def brdf_correction(RGB, depth, MS480_DN, MS520_DN, MS550_DN, MS670_DN, MS700_DN
 
     for i in range(r):
         for j in range(c):
-            if math.isnan(Filter2[i, j]):
+            if math.isnan(z[i, j]):
                 dang[i, j] = 0
             else:
-                dang[i, j] = depAng(1, Filter2[i, j])
+                dang[i, j] = depAng(1, z[i, j])
 
     # Generating new matrix
     # in size of the origenal image (z)

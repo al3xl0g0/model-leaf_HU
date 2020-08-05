@@ -70,7 +70,10 @@ MS780rad = pcloudMS780[:, :, 2]
 [pcloud, distance] = depthToCloud(RGB, depth, 0)
 z = pcloud[:, :, 2]
 [r, c] = np.shape(z)
+#MASK
+mask = MS480rad
 Filter2 = signal.medfilt(z)
+Filter2 = np.multiply(Filter2, mask)
 dang = np.zeros(np.shape(z))
 
 for i in range(r):
@@ -102,7 +105,8 @@ for i in range(r):
             dang[i, j] = 0
         else:
             dang[i, j] = depAng(1, Filter2[i, j])
-
+# ALEX, Need to ADD: depAng(imag(depAng) ~= 0) = 0;
+dang = np.imag(dang)
 # Generating new matrix
 # in size of the origenal image (z)
 # and the starting value is 90 to all cells
@@ -120,17 +124,20 @@ for i in range(r):
 # Coefficient based on polynom calculation from SPHER
 # Alignment each of the pixels  - the small Align
 # Test
-Rad3dang_480 = np.multiply(-3.0929, np.power(angcoef, 2)) + np.multiply(4.4708, angcoef) - 0.4843
-Rad3dang_520 = np.multiply(1.9053, np.power(angcoef, 2)) - np.multiply(6.8177, angcoef) + 5.8257
-Rad3dang_550 = np.multiply(-1.4214, np.power(angcoef, 2)) + np.multiply(1.2813, angcoef) + 0.8046
-Rad3dang_670 = np.multiply(1.1746, np.power(angcoef, 2)) - np.multiply(3.6691, angcoef) + 2.8396
-Rad3dang_700 = np.multiply(1.4149, np.power(angcoef, 2)) - np.multiply(3.9761, angcoef) + 2.8536
-Rad3dang_730 = np.multiply(0.4538, np.power(angcoef, 2)) - np.multiply(1.6242, angcoef) + 1.4194
-Rad3dang_780 = np.multiply(-0.1729, np.power(angcoef, 2)) - np.multiply(0.3105, angcoef) + 0.7748
+Rad3dang_480 = np.multiply(-763, np.power(angcoef, 2)) + np.multiply(1956.8, angcoef) - 1238.9
+Rad3dang_520 = np.multiply(-972.69, np.power(angcoef, 2)) + np.multiply(2505.9, angcoef) - 1603.2
+Rad3dang_550 = np.multiply(-383.73, np.power(angcoef, 2)) + np.multiply(954.5, angcoef) - 578.42
+Rad3dang_670 = np.multiply(-309.5, np.power(angcoef, 2)) + np.multiply(745.36, angcoef) - 432.14
+Rad3dang_700 = np.multiply(-177.96, np.power(angcoef, 2)) + np.multiply(422.32, angcoef) - 237.6
+Rad3dang_730 = np.multiply(-250.67, np.power(angcoef, 2)) + np.multiply(633.22, angcoef) - 391.33
+Rad3dang_780 = np.multiply(-360.1, np.power(angcoef, 2)) + np.multiply(897.57, angcoef) - 548.05
 
 
 # Seconde Align - to the sensor
-Rad3dang_coef480 = np.add(1, np.subtract(1, Rad3dang_480))
+
+#Rad3dang_coef480 = (max(max(Rad3dang_480)) + (max(max(Rad3dang_480)) - Rad3dang_480)). / Rad3dang_480;
+
+Rad3dang_coef480 = np.true_divide(np.add(np.max(Rad3dang_480), np.subtract(np.max(Rad3dang_480), np.max(Rad3dang_480))), Rad3dang_480)
 Rad3dang_coef520 = np.add(1, np.subtract(1, Rad3dang_520))
 Rad3dang_coef550 = np.add(1, np.subtract(1, Rad3dang_550))
 Rad3dang_coef670 = np.add(1, np.subtract(1, Rad3dang_670))
