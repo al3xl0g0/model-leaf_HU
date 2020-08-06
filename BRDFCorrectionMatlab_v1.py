@@ -179,7 +179,7 @@ Rad3d_corr780 = np.multiply(Rad2d_depth780, Rad3dang_coef780)
 # cv2.imwrite('C:\Users\Hevra\Downloads\Processed\Rad3d_corr550.png', Rad3d_corr550.astype(np.uint8))
 # cv2.imwrite('C:\Users\Hevra\Downloads\Processed\Rad3d_corr670.png', Rad3d_corr670.astype(np.uint8))
 # cv2.imwrite('C:\Users\Hevra\Downloads\Processed\Rad3d_corr700.png', Rad3d_corr700.astype(np.uint8))
-#correct_image_Rad3d_corr730 = Rad3d_corr730.astype(np.uint16)
+
 cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Rad3d_corr480_cv2.png', Rad3d_corr480, [cv2.IMWRITE_PNG_COMPRESSION, 0])
 cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Rad3d_corr520_cv2.png', Rad3d_corr520, [cv2.IMWRITE_PNG_COMPRESSION, 0])
 cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Rad3d_corr550_cv2.png', Rad3d_corr550, [cv2.IMWRITE_PNG_COMPRESSION, 0])

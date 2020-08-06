@@ -72,7 +72,7 @@ z = pcloud[:, :, 2]
 [r, c] = np.shape(z)
 # MASK
 Filter2 = signal.medfilt(z)
-mask = MS480rad
+mask = MS480rad #loop 1 == 0
 Filter2 = np.multiply(Filter2, mask)
 dang = np.zeros(np.shape(z))
 
