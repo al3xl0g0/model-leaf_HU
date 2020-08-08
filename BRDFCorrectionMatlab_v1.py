@@ -20,7 +20,7 @@ MS670_DN = skio.imread(data_folder / 'Multi_Channel_Robin_670.png')
 MS700_DN = skio.imread(data_folder / 'Multi_Channel_Robin_700.png')
 MS730_DN = skio.imread(data_folder / 'Multi_Channel_Robin_730.png')
 MS780_DN = skio.imread(data_folder / 'Multi_Channel_Robin_780.png')
-thermal = skio.imread(data_folder / 'Thermal_Channel_0.png')
+
 
 DN2RAD = np.asarray([0.059057, 0.192245, 0.594233, 1.198960, 1.871885, 2.034510, 2.075143])
 
@@ -59,7 +59,6 @@ MS780rad = pcloudMS780[:, :, 2]
 
 #BRDF Correction
 # % extract row and column size from z
-# filter2 = signal.medfilt(z)
 # % smoth the outliners in z by using medfilter function of matlab
 # % were each output pixel contains the median value in the 3 - by - 3
 # % neighborhood  arround the croosponding pixel in the input image (z)
@@ -119,7 +118,7 @@ for i in range(r):
 # Calculat parameters to 3D correction in 2 steps%%%
 # Coefficient based on polynom calculation from SPHER
 # Alignment each of the pixels  - the small Align
-# Test
+
 Rad3dang_480 = np.multiply(-3.0929, np.power(angcoef, 2)) + np.multiply(4.4708, angcoef) - 0.4843
 Rad3dang_520 = np.multiply(1.9053, np.power(angcoef, 2)) - np.multiply(6.8177, angcoef) + 5.8257
 Rad3dang_550 = np.multiply(-1.4214, np.power(angcoef, 2)) + np.multiply(1.2813, angcoef) + 0.8046
