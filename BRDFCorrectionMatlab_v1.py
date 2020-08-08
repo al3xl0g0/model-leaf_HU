@@ -3,7 +3,7 @@ import numpy as np
 import cv2
 import scipy.signal as signal
 from scipy import io
-from skimage import io as skio
+from skimage import io as skio, img_as_uint, img_as_ubyte, img_as_int
 from DataToCloud import dataToCloud
 from DepressionAng import depAng
 from DepthToCloud import depthToCloud
@@ -151,40 +151,20 @@ Rad3d_corr730 = np.multiply(Rad2d_depth730, Rad3dang_coef730)
 Rad3d_corr780 = np.multiply(Rad2d_depth780, Rad3dang_coef780)
 
 
-# 3D correction based on BRDF project each pixel to one plane
+BRDF_Final_480 = np.multiply(Rad3d_corr480, 1000)
+BRDF_Final_520 = np.multiply(Rad3d_corr520, 1000)
+BRDF_Final_550 = np.multiply(Rad3d_corr550, 1000)
+BRDF_Final_670 = np.multiply(Rad3d_corr670, 1000)
+BRDF_Final_700 = np.multiply(Rad3d_corr700, 1000)
+BRDF_Final_730 = np.multiply(Rad3d_corr730, 1000)
+BRDF_Final_780 = np.multiply(Rad3d_corr730, 1000)
 
-# Radiance2Reflectance
-# Gain coefficients calculated from lab experiment for each Band
-# In order to bring the corent RADIANCE data to Reflectance
-# Coefficients to Banana in Rahan
-# Gain = np.asarray([0.0428, 0.0301, 0.0179, 0.0056, 0.0089, 0.0083, 0.0074])
-#
-# Ref3d_corr480 = np.multiply(Rad3d_corr480, Gain[0])
-# Ref3d_corr520 = np.multiply(Rad3d_corr520, Gain[1])
-# Ref3d_corr550 = np.multiply(Rad3d_corr550, Gain[2])
-# Ref3d_corr670 = np.multiply(Rad3d_corr670, Gain[3])
-# Ref3d_corr700 = np.multiply(Rad3d_corr700, Gain[4])
-# Ref3d_corr730 = np.multiply(Rad3d_corr730, Gain[5])
-# Ref3d_corr780 = np.multiply(Rad3d_corr780, Gain[6])
-# print('Ref3d_corr780')
-# print(Ref3d_corr780[438, 446])
 
-# Create RGB image base on the RGB chanels of the Reflectance 3D correction data of MultySpectral sensor
-# convert the chanels to uint8 format just for disply
-# and Enhanse the colors with imadjust function
+cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\BRDF_Final_480_cv2.png', BRDF_Final_480.astype(np.uint16), [cv2.IMWRITE_PNG_COMPRESSION, 0])
+cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\BRDF_Final_520_cv2.png', BRDF_Final_520.astype(np.uint16), [cv2.IMWRITE_PNG_COMPRESSION, 0])
+cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\BRDF_Final_550_cv2.png', BRDF_Final_550.astype(np.uint16), [cv2.IMWRITE_PNG_COMPRESSION, 0])
+cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\BRDF_Final_670_cv2.png', BRDF_Final_670.astype(np.uint16), [cv2.IMWRITE_PNG_COMPRESSION, 0])
+cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\BRDF_Final_700_cv2.png', BRDF_Final_700.astype(np.uint16), [cv2.IMWRITE_PNG_COMPRESSION, 0])
+cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\BRDF_Final_730_cv2.png', BRDF_Final_730.astype(np.uint16), [cv2.IMWRITE_PNG_COMPRESSION, 0])
+cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\BRDF_Final_780_cv2.png', BRDF_Final_780.astype(np.uint16), [cv2.IMWRITE_PNG_COMPRESSION, 0])
 
-#
-# cv2.imwrite('C:\Users\Hevra\Downloads\Processed\Rad3d_corr480.png', Rad3d_corr480.astype(np.uint8))
-# cv2.imwrite('C:\Users\Hevra\Downloads\Processed\Rad3d_corr520.png', Rad3d_corr520.astype(np.uint8))
-# cv2.imwrite('C:\Users\Hevra\Downloads\Processed\Rad3d_corr550.png', Rad3d_corr550.astype(np.uint8))
-# cv2.imwrite('C:\Users\Hevra\Downloads\Processed\Rad3d_corr670.png', Rad3d_corr670.astype(np.uint8))
-# cv2.imwrite('C:\Users\Hevra\Downloads\Processed\Rad3d_corr700.png', Rad3d_corr700.astype(np.uint8))
-
-cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Rad3d_corr480_cv2.png', Rad3d_corr480, [cv2.IMWRITE_PNG_COMPRESSION, 0])
-cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Rad3d_corr520_cv2.png', Rad3d_corr520, [cv2.IMWRITE_PNG_COMPRESSION, 0])
-cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Rad3d_corr550_cv2.png', Rad3d_corr550, [cv2.IMWRITE_PNG_COMPRESSION, 0])
-cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Rad3d_corr670_cv2.png', Rad3d_corr670, [cv2.IMWRITE_PNG_COMPRESSION, 0])
-cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Rad3d_corr700_cv2.png', Rad3d_corr700, [cv2.IMWRITE_PNG_COMPRESSION, 0])
-cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Rad3d_corr730_cv2.png', Rad3d_corr730, [cv2.IMWRITE_PNG_COMPRESSION, 0])
-cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Rad3d_corr780_cv2.png', Rad3d_corr780, [cv2.IMWRITE_PNG_COMPRESSION, 0])
-#skio.imsave(r'C:\Users\Hevra\Downloads\Processed\Rad3d_corr730.png', Rad3d_corr730.astype(np.uint16))

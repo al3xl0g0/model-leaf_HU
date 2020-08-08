@@ -78,7 +78,7 @@ dang = np.zeros(np.shape(z))
 
 for i in range(r):
     for j in range(c):
-        if Filter2[i, j] >= 1:
+        if Filter2[i, j] >= 0.8:
             Filter2[i, j] = Filter2[i, j]
         else:
             Filter2[i, j] = nan
@@ -116,7 +116,7 @@ angcoef = np.ones((r, c))
 
 for i in range(r):
     for j in range(c):
-        if dang[i, j] < 60:
+        if dang[i, j] < 45:
             angcoef[i, j] = nan
         else:
             angcoef[i, j] = np.true_divide(coef[i, j], dang[i, j])
