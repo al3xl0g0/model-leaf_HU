@@ -87,7 +87,7 @@ dang = np.zeros(np.shape(z))
 
 for i in range(r):
     for j in range(c):
-        if Filter2[i, j] >= 1:
+        if Filter2[i, j] >= 0.8:
             Filter2[i, j] = Filter2[i, j]
         else:
             Filter2[i, j] = nan
@@ -179,56 +179,59 @@ Rad3dang_coef780 = np.true_divide(np.add(np.nanmax(Rad3dang_780), np.subtract(np
 
 # % 3D correction based on BRDF
 # % project each pixel to one plane
-Rad3dang_corr480 = np.ones((r, c))
-Rad3dang_corr520 = np.ones((r, c))
-Rad3dang_corr550 = np.ones((r, c))
-Rad3dang_corr670 = np.ones((r, c))
-Rad3dang_corr700 = np.ones((r, c))
-Rad3dang_corr730 = np.ones((r, c))
-Rad3dang_corr780 = np.ones((r, c))
+Rad3dang_corr480 = np.ones(np.shape(z))
+Rad3dang_corr520 = np.ones(np.shape(z))
+Rad3dang_corr550 = np.ones(np.shape(z))
+Rad3dang_corr670 = np.ones(np.shape(z))
+Rad3dang_corr700 = np.ones(np.shape(z))
+Rad3dang_corr730 = np.ones(np.shape(z))
+Rad3dang_corr780 = np.ones(np.shape(z))
+
+
 
 for i in range(r):
     for j in range(c):
-        if Rad3dang_480[i, j] <= 1 and Rad3dang_coef480[i, j] > 2:
-            Rad3dang_corr480[i, j] = Rad2d_depth480[i, j]
-        else:
-            Rad3dang_corr480[i, j] = np.multiply(Rad2d_depth480[i, j], Rad3dang_coef480[i, j])
-        if Rad3dang_520[i, j] <= 1 and Rad3dang_coef520[i, j] > 2:
-            Rad3dang_corr520[i, j] = Rad2d_depth520[i, j]
-        else:
-            Rad3dang_corr520[i, j] = np.multiply(Rad2d_depth520[i, j], Rad3dang_coef520[i, j])
-
-        if Rad3dang_550[i, j] <= 1 and Rad3dang_coef550[i, j] > 2:
-            Rad3dang_corr550[i, j] = Rad2d_depth550[i, j]
-        else:
-            Rad3dang_corr550[i, j] = np.multiply(Rad2d_depth550[i, j], Rad3dang_coef550[i, j])
-
-        if Rad3dang_670[i, j] <= 1 and Rad3dang_coef670[i, j] > 2:
-            Rad3dang_corr670[i, j] = Rad2d_depth670[i, j]
-        else:
-            Rad3dang_corr670[i, j] = np.multiply(Rad2d_depth670[i, j], Rad3dang_coef670[i, j])
-
-        if Rad3dang_700[i, j] <= 1 and Rad3dang_coef700[i, j] > 2:
-            Rad3dang_corr700[i, j] = Rad2d_depth700[i, j]
-        else:
-            Rad3dang_corr700[i, j] = np.multiply(Rad2d_depth700[i, j], Rad3dang_coef700[i, j])
-
-        if Rad3dang_730[i, j] <= 1 and Rad3dang_coef730[i, j] > 2:
+        if Rad3dang_730[i, j] > 1:
             Rad3dang_corr730[i, j] = Rad2d_depth730[i, j]
         else:
             Rad3dang_corr730[i, j] = np.multiply(Rad2d_depth730[i, j], Rad3dang_coef730[i, j])
 
-        if Rad3dang_780[i, j] <= 1 and Rad3dang_coef780[i, j] > 2:
-            Rad3dang_corr780[i, j] = Rad2d_depth780[i, j]
-        else:
-            Rad3dang_corr780[i, j] = np.multiply(Rad2d_depth480[i, j], Rad3dang_coef780[i, j])
+        # if Rad3dang_520[i, j] <= 1 or Rad3dang_coef520[i, j] > 2:
+        #     Rad3dang_corr520[i, j] = Rad2d_depth520[i, j]
+        # else:
+        #     Rad3dang_corr520[i, j] = np.multiply(Rad2d_depth520[i, j], Rad3dang_coef520[i, j])
+        #
+        # if Rad3dang_550[i, j] <= 1 or Rad3dang_coef550[i, j] > 2:
+        #     Rad3dang_corr550[i, j] = Rad2d_depth550[i, j]
+        # else:
+        #     Rad3dang_corr550[i, j] = np.multiply(Rad2d_depth550[i, j], Rad3dang_coef550[i, j])
+        #
+        # if Rad3dang_670[i, j] <= 1 or Rad3dang_coef670[i, j] > 2:
+        #     Rad3dang_corr670[i, j] = Rad2d_depth670[i, j]
+        # else:
+        #     Rad3dang_corr670[i, j] = np.multiply(Rad2d_depth670[i, j], Rad3dang_coef670[i, j])
+        #
+        # if Rad3dang_700[i, j] <= 1 or Rad3dang_coef700[i, j] > 2:
+        #     Rad3dang_corr700[i, j] = Rad2d_depth700[i, j]
+        # else:
+        #     Rad3dang_corr700[i, j] = np.multiply(Rad2d_depth700[i, j], Rad3dang_coef700[i, j])
+        #
+        # if Rad3dang_730[i, j] <= 1 or Rad3dang_coef730[i, j] > 2:
+        #     Rad3dang_corr730[i, j] = Rad2d_depth730[i, j]
+        # else:
+        #     Rad3dang_corr730[i, j] = np.multiply(Rad2d_depth730[i, j], Rad3dang_coef730[i, j])
+        #
+        # if Rad3dang_780[i, j] <= 1 or Rad3dang_coef780[i, j] > 2:
+        #     Rad3dang_corr780[i, j] = Rad2d_depth780[i, j]
+        # else:
+        #     Rad3dang_corr780[i, j] = np.multiply(Rad2d_depth480[i, j], Rad3dang_coef780[i, j])
 
 
 
-cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Ex601_Task_A_1\V2_Rad3dang_480_cv2.png', Rad3dang_corr480.astype(np.uint16), [cv2.IMWRITE_PNG_COMPRESSION, 0])
-cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Ex601_Task_A_1\V2_Rad3dang_550_cv2.png', Rad3dang_corr550.astype(np.uint16), [cv2.IMWRITE_PNG_COMPRESSION, 0])
-cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Ex601_Task_A_1\V2_Rad3dang_670_cv2.png', Rad3dang_corr670.astype(np.uint16), [cv2.IMWRITE_PNG_COMPRESSION, 0])
-cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Ex601_Task_A_1\V2_Rad3dang_700_cv2.png', Rad3dang_corr700.astype(np.uint16), [cv2.IMWRITE_PNG_COMPRESSION, 0])
+# cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Ex601_Task_A_1\V2_Rad3dang_480_cv2.png', Rad3dang_corr480.astype(np.uint16), [cv2.IMWRITE_PNG_COMPRESSION, 0])
+# cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Ex601_Task_A_1\V2_Rad3dang_550_cv2.png', Rad3dang_corr550.astype(np.uint16), [cv2.IMWRITE_PNG_COMPRESSION, 0])
+# cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Ex601_Task_A_1\V2_Rad3dang_670_cv2.png', Rad3dang_corr670.astype(np.uint16), [cv2.IMWRITE_PNG_COMPRESSION, 0])
+# cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Ex601_Task_A_1\V2_Rad3dang_700_cv2.png', Rad3dang_corr700.astype(np.uint16), [cv2.IMWRITE_PNG_COMPRESSION, 0])
 cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Ex601_Task_A_1\V2_Rad3dang_730_cv2.png', Rad3dang_corr730.astype(np.uint16), [cv2.IMWRITE_PNG_COMPRESSION, 0])
-cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Ex601_Task_A_1\V2_Rad3dang_780_cv2.png', Rad3dang_corr780.astype(np.uint16), [cv2.IMWRITE_PNG_COMPRESSION, 0])
-
+# cv2.imwrite(r'C:\Users\Hevra\Downloads\Processed\Ex601_Task_A_1\V2_Rad3dang_780_cv2.png', Rad3dang_corr780.astype(np.uint16), [cv2.IMWRITE_PNG_COMPRESSION, 0])
+#
